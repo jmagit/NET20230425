@@ -49,6 +49,15 @@ namespace Demos {
 #endif
             return a + b;
         }
+
+        public decimal Delta(decimal a, decimal b) {
+            var result = Math.Abs(a - b);
+#if DEBUG
+            Console.WriteLine(result);
+#endif
+            return result;
+        }
+
         #endregion
         #endregion
     }

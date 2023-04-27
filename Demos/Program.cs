@@ -1,6 +1,13 @@
 ﻿namespace Demos {
+    public enum Dias {
+        LUNES = 1, MARTES = 11, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO
+    }
+    public enum DiasLaborables {
+        LUNES, MARTES, MIERCOLES, JUEVES, VIERNES
+    }
     internal class Program {
         static void Main(string[] args) {
+            Dias dia = Dias.LUNES;
             var c = new Calculadora();
             var i = c.Suma((decimal)0.1, (decimal)0.2);
             var k = c.Suma(0.1M, 0.2m);
@@ -8,15 +15,17 @@
             char letra = '0';
             Object o = i; // new Decimal(i)
             //o = c;
-            if(o is Calculadora) {
-                (o as Calculadora).Suma(1,2,3);
+            if(o is Calculadora calc) {
+                // var calc = o as Calculadora;
+                calc.Suma(1, 2, 3);
+                (o as Calculadora).Suma(1, 2, 3);
                 ((Calculadora)o).Suma(1, 2, 3);
             }
             if(c != null && c.Suma(2m, 2m) > 3) {
 
             }
             int? edad = null;
-            Nullable<int> n = null; 
+            Nullable<int> n = null;
             edad = 5;
             int años = (int)i;
             if(edad.HasValue) {
@@ -31,6 +40,8 @@
             if((o1 = c.Suma(1, 2, 3)) > 2 & (o2 = c.Suma(1, 2, 3)) < 2) { }
             Console.WriteLine($"Divide: {(decimal)div / años}\n");
             Console.WriteLine($"char: {letra} {j} {'A' + 1}\n");
+            Console.WriteLine($"Tiene {años} {años switch { 0 => "ninguno", 1 => "año", _ => "años" }}\n");
+
             var nombre = "mundo";
             Console.WriteLine("Adios \"" + nombre + "\"\n");
             Console.WriteLine($"Adios {nombre}\n");
@@ -44,7 +55,18 @@
             //var rslt = c?.Suma(1, 2, 3) ?? 0; //o?.p?.m();
             //string cad;
             //cad = (cad??"").ToLower();
-
+            switch(años) {
+                case 0 or 1:
+                    Console.WriteLine("Pocos");
+                    break;
+                case 2 or 3:
+                    Console.WriteLine("Varios");
+                    break;
+                default:
+                    Console.WriteLine("Muchos");
+                    break;
+            }
+            Demos.Utilidades.Validador v;
 
         }
     }

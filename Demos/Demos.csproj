@@ -8,4 +8,8 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Utilidades\Utilidades.csproj" />
+  </ItemGroup>
+
 </Project>
