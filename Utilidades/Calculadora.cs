@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Demos.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Math;
 
 namespace Demos {
     /// <summary>
     /// Demo de la documentación
     /// </summary>
 #if DEBUG
-    public class Calculadora {
+    public class Calculadora: IGrafico {
 #else
     internal class Calculadora {
 #endif
@@ -49,13 +51,49 @@ namespace Demos {
 #endif
             return a + b;
         }
-
-        public decimal Delta(decimal a, decimal b) {
-            var result = Math.Abs(a - b);
+        public decimal Resta(decimal a, decimal b) {
+            var result = a - b;
 #if DEBUG
             Console.WriteLine(result);
 #endif
             return result;
+        }
+
+        public decimal Delta(decimal a, decimal b) {
+            var result = Abs(Resta(a, b));
+#if DEBUG
+            Console.WriteLine(result);
+#endif
+            return result;
+        }
+
+
+        public decimal Avg(decimal a, decimal b, params decimal[] resto) {
+            var result = a + b;
+            foreach(var val in resto)
+                result += val;
+            result /= resto.Length + 2;
+#if DEBUG
+            Console.WriteLine(result);
+#endif
+            return result;
+        }
+
+        public double Power(double a, double exponente = 2, double factor = 1) {
+            var result = Math.Pow(a, exponente) * factor;
+            if(result < 0) return 0;
+#if DEBUG
+            Console.WriteLine(result);
+#endif
+            return result;
+        }
+
+        public void Pintate(string algo) {
+            Console.WriteLine($"{algo}: Soy una calculadora");
+        }
+
+        public void Pintate() {
+            Console.WriteLine($"Soy una calculadora");
         }
 
         #endregion

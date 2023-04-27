@@ -1,4 +1,7 @@
-﻿namespace Demos {
+﻿using Demos.Utilidades;
+using corto = System.Drawing;
+
+namespace Demos {
     public enum Dias {
         LUNES = 1, MARTES = 11, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO
     }
@@ -7,8 +10,27 @@
     }
     internal class Program {
         static void Main(string[] args) {
+            corto.Color color;
             Dias dia = Dias.LUNES;
+            int? xx = 0;
             var c = new Calculadora();
+            IGrafico p = c;
+            p.Pintate("Interfaz");
+            var persona = new Alumno();
+            p = persona;
+            //if(persona.)
+            p.Pintate(null);
+
+            if(p is Calculadora calcula) {
+                calcula.Avg(1, 2);
+                calcula.Pintate();
+            }
+            return;
+            c.Avg(1, 2, 3, 4, 5);
+            c.Power(2);
+            c.Power(2, 2);
+            c.Power(2, factor: 2);
+            if(dia == Dias.LUNES) return;
             var i = c.Suma((decimal)0.1, (decimal)0.2);
             var k = c.Suma(0.1M, 0.2m);
             var j = c.Suma(1, 3, 3);
@@ -66,7 +88,7 @@
                     Console.WriteLine("Muchos");
                     break;
             }
-            Demos.Utilidades.Validador v;
+            Validador v;
 
         }
     }
