@@ -7,11 +7,22 @@ using System.Threading.Tasks;
 using static System.Math;
 
 namespace Demos {
+    public class CalculadoEventAgs : EventArgs {
+        public double Resultado { get; set; }
+    }
     /// <summary>
     /// Demo de la documentación
     /// </summary>
 #if DEBUG
     public class Calculadora: IGrafico {
+        public event EventHandler<CalculadoEventAgs> Calculado;
+
+        protected void OnCalculado(double resultado) {
+            if(Calculado != null) {
+                Calculado(this, new CalculadoEventAgs() { Resultado = resultado });
+            }
+        }
+        public string Dispositivo { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 #else
     internal class Calculadora {
 #endif
@@ -33,11 +44,20 @@ namespace Demos {
         /// <param name="a">Primer operando</param>
         /// <param name="b">Segundo operando</param>
         /// <returns>Suma de los dos operandos</returns>
+        [Obsolete]
         public double Suma(double a, double b) {
 #if DEBUG
             Console.WriteLine(a + b);
 #endif
+            OnCalculado(a + b);
             return a + b;
+        }
+        public double Multiplica(double a, double b) {
+#if DEBUG
+            Console.WriteLine(a * b);
+#endif
+            OnCalculado(a * b);
+            return a * b;
         }
         public double Suma(int a, int b, int c) {
 #if DEBUG
