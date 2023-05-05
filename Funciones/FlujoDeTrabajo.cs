@@ -68,8 +68,13 @@ namespace Funciones {
             var outputs = new List<string>();
             var cityes = new[] { "Tokyo", "Seattle", "London" };
 
-            foreach(var city in cityes)
-                outputs.Add(await context.CallActivityAsync<string>(nameof(SayHello), city));
+            //foreach(var city in cityes)
+            //    outputs.Add(await context.CallActivityAsync<string>(nameof(SayHello), city));
+            var rslt = "";
+            foreach(var city in cityes) {
+                rslt = await context.CallActivityAsync<string>(nameof(SayHello), city + " " + rslt);
+            }
+            outputs.Add(rslt);
 
             //for(var i = 0; i < cityes.Length; i++) {
             //    await context.CreateTimer(context.CurrentUtcDateTime.Add(TimeSpan.FromSeconds(10)), CancellationToken.None);
@@ -91,7 +96,7 @@ namespace Funciones {
 
             var parallelTasks = new List<Task<string>>();
             foreach(var city in cityes)
-                parallelTasks.Add(context.CallActivityAsync<string>(nameof(SayGoodbye), city));
+                parallelTasks.Add(context.CallActivityAsync<string>(nameof(SayHello), city));
             await Task.WhenAll(parallelTasks);
             outputs = parallelTasks.Select(t => t.Result).ToList();
             outputs.Add($"Duration: {context.CurrentUtcDateTime.Subtract(startTime)}");
@@ -113,7 +118,7 @@ namespace Funciones {
         public static async Task<string> RunExpiracion(
             [OrchestrationTrigger] IDurableOrchestrationContext context) {
 
-            int duracion = 20;
+            int duracion = 5;
             TimeSpan timeout = TimeSpan.FromSeconds(10);
             DateTime deadline = context.CurrentUtcDateTime.Add(timeout);
 
